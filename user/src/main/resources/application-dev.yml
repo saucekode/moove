@@ -16,3 +16,8 @@ spring:
       hibernate:
         ddl-auto: update
       show-sql: 'true'
+
+shoplyst:
+  app:
+    jwtSecret: 'quickfoxranoverthedogandslammedthedoorshut'
+    jwtExpirationInMs: 86400000
