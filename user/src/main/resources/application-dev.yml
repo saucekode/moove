@@ -20,4 +20,8 @@ spring:
 shoplyst:
   app:
     jwtSecret: 'quickfoxranoverthedogandslammedthedoorshut'
-    jwtExpirationInMs: 86400000
+    jwtExpirationMs: 86400000
+
+app:
+  cors:
+    allowedOrigins:
