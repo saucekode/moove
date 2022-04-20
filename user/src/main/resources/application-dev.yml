@@ -17,6 +17,11 @@ spring:
         ddl-auto: update
       show-sql: 'true'
 
+  flyway:
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    schemas: users
+
 shoplyst:
   app:
     jwtSecret: 'quickfoxranoverthedogandslammedthedoorshut'
@@ -25,3 +30,4 @@ shoplyst:
 app:
   cors:
     allowedOrigins:
+
