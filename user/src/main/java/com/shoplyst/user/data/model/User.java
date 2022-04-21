@@ -29,7 +29,7 @@ public class User {
     private String username;
 
     @NotBlank
-    @Size(max = 50)
+    @Size(max = 255)
     @Email
     private String email;
 
