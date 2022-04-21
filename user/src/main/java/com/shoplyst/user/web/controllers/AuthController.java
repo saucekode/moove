@@ -9,8 +9,11 @@ import com.shoplyst.user.data.payload.response.ApiResponse;
 import com.shoplyst.user.data.payload.response.JwtResponse;
 import com.shoplyst.user.data.repository.RoleRepository;
 import com.shoplyst.user.data.repository.UserRepository;
+import com.shoplyst.user.security.jwt.AuthTokenFilter;
 import com.shoplyst.user.security.jwt.JwtUtils;
 import com.shoplyst.user.service.UserDetailsImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -39,6 +42,10 @@ public class AuthController {
     PasswordEncoder encoder;
     @Autowired
     JwtUtils jwtUtils;
+
+
+    private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
@@ -74,27 +81,37 @@ public class AuthController {
                 encoder.encode(signUpRequest.getPassword()));
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
+        logger.info("Customer role name -> {}", UserRoles.CUSTOMER);
         if (strRoles == null) {
-            Role userRole = roleRepository.findRoleByUserRoles(UserRoles.CUSTOMER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            Role userRole = roleRepository.findRoleByUserRoles(UserRoles.CUSTOMER);
             roles.add(userRole);
+
+            logger.info("Customer role name -> {}", UserRoles.CUSTOMER);
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
                     case "admin":
-                        Role adminRole = roleRepository.findRoleByUserRoles(UserRoles.ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        Role adminRole = roleRepository.findRoleByUserRoles(UserRoles.ADMIN);
+
+                        logger.info("Customer role name -> {}", adminRole);
+
                         roles.add(adminRole);
                         break;
                     case "storeOwner":
-                        Role storeOwner = roleRepository.findRoleByUserRoles(UserRoles.STORE_OWNER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        Role storeOwner = roleRepository.findRoleByUserRoles(UserRoles.STORE_OWNER);
+
+                        logger.info("Customer role name -> {}", storeOwner);
+
                         roles.add(storeOwner);
+
                         break;
                     default:
-                        Role userRole = roleRepository.findRoleByUserRoles(UserRoles.CUSTOMER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        Role userRole = roleRepository.findRoleByUserRoles(UserRoles.CUSTOMER);
+
+                        logger.info("Customer role name -> {}", UserRoles.CUSTOMER);
+
                         roles.add(userRole);
+
                 }
             });
         }

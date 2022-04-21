@@ -18,11 +18,12 @@ spring:
       show-sql: 'true'
 
   flyway:
-    user: 'saucekode'
-    password: 'soft234#'
-    locations: 'classpath:db/migration'
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    locations: classpath:db/migration
     enabled: true
-    url: 'jdbc:postgres://saucekode:soft234#@localhost:5432/users'
+    url: jdbc:postgresql://localhost:5432/user
+    baseline-on-migrate: true
 
 shoplyst:
   app:
