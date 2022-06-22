@@ -10,16 +10,13 @@ import javax.persistence.*;
 public class Role {
 
     @Id
-    @Column(name = "role_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(length=25, name = "user_roles")
+    @Column(length=20)
     private UserRoles name;
 
     public Role(){}
 
-    public Role(UserRoles name){
-        this.name = name;
-    }
 }

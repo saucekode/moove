@@ -58,8 +58,8 @@ public class AuthController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
-                userDetails.getUsername(),
                 userDetails.getEmail(),
+                userDetails.getUsername(),
                 roles));
     }
     @PostMapping("/signup")
@@ -81,7 +81,7 @@ public class AuthController {
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
 
-        logger.info("roles added: {}", strRoles);
+//        logger.info("roles added: {}", strRoles);
 
         User user = new User(
                 signUpRequest.getFirstName(),
@@ -98,17 +98,17 @@ public class AuthController {
 
         } else {
             strRoles.forEach(role -> {
-                logger.info("current role: {}", role);
+//                logger.info("current role: {}", role);
                 switch (role) {
                     case "admin":
                         Role adminRole = roleRepository.findByName(UserRoles.ADMIN);
 
 
-                        logger.info("Customer admin role before add -> {}", adminRole);
+//                        logger.info("Customer admin role before add -> {}", adminRole);
 
                         roles.add(adminRole);
 
-                        logger.info("Customer admin role after add -> {}", roles);
+//                        logger.info("Customer admin role after add -> {}", roles);
                         break;
                     case "moderator":
                         Role moderator = roleRepository.findByName(UserRoles.MODERATOR);
@@ -117,7 +117,7 @@ public class AuthController {
 
                         roles.add(moderator);
 
-                        logger.info("Customer role name -> {}", roles);
+//                        logger.info("Customer role name -> {}", roles);
 
                         break;
                     default:
@@ -127,19 +127,19 @@ public class AuthController {
 
                         roles.add(userRole);
 
-                        logger.info("Customer role name -> {}", roles);
+//                        logger.info("Customer role name -> {}", roles);
 
                 }
             });
         }
 
-        logger.info("Customer roles -> {}", roles);
+//        logger.info("User roles -> {}", roles);
 
         user.setRoles(roles);
 
         userRepository.save(user);
 
-        logger.info("User to be saved -> {}", user);
+//        logger.info("User to be saved -> {}", user);
 
         return ResponseEntity.ok(new ApiResponse(true,"User registered successfully!"));
     }
