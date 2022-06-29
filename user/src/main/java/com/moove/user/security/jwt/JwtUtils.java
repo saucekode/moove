@@ -13,9 +13,9 @@ import java.util.Date;
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
-    @Value("${shoplyst.app.jwtSecret}")
+    @Value("${lyst.app.jwtSecret}")
     private String jwtSecret;
-    @Value("${shoplyst.app.jwtExpirationMs}")
+    @Value("${lyst.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
     public String generateJwtToken(Authentication authentication) {

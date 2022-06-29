@@ -63,7 +63,7 @@ public class AuthController {
                 roles));
     }
     @PostMapping("/signup")
-    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest, String siteURL) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                     .badRequest()
@@ -143,4 +143,5 @@ public class AuthController {
 
         return ResponseEntity.ok(new ApiResponse(true,"User registered successfully!"));
     }
+
 }

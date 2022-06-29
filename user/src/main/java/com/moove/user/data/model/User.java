@@ -38,6 +38,10 @@ public class User {
     @Size(max = 120)
     private String password;
 
+    private String verificationCode;
+
+    private Boolean isEnabled;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(	name = "user_roles",
             joinColumns =  @JoinColumn( name = "user_id") ,
@@ -46,6 +50,10 @@ public class User {
     private Set<Role> roles = new HashSet<>();
 
     public User() {
+    }
+
+    public Boolean isEnabled(){
+        return isEnabled;
     }
 
 //    public User(String username, String email, String password) {

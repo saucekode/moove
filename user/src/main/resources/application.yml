@@ -1,3 +1,37 @@
+server:
+  port: 8080
+
 spring:
-  profiles:
-    active: dev
+  application:
+    name: user_db
+  datasource:
+    username: 'saucekode'
+    url: jdbc:postgresql://localhost:5432/user_db
+    password: 'soft234#'
+    jpa:
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.PostgreSQLDialect
+          format_sql: 'true'
+
+      hibernate:
+        ddl-auto: create-drop
+
+      show-sql: 'true'
+
+  flyway:
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    locations: classpath:db/migration
+    enabled: false
+    url: jdbc:postgresql://localhost:5432/user_db
+    baseline-on-migrate: true
+
+lyst:
+  app:
+    jwtSecret: quickFoxRanOverTheDogAlsoIFeelLikeCryingquickFoxRanOverTheDogAlsoIFeelLikeCryingquickFoxRanOverTheDogAlsoIFeelLikeCrying
+    jwtExpirationMs: 86400000
+
+app:
+  cors:
+    allowedOrigins:
